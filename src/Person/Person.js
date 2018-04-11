@@ -1,12 +1,12 @@
 import React from "react";
 import "./Person.css";
-const person = ({ name, age, id, handleChangeName }) => {
+const person = ({ name, age, handeClick, changed }) => {
   return (
     <div className="Person">
-      <p>
-        My name is {name}, and age is {age}
+      <p onClick={handeClick}>
+        My name is {name}, and I'm {age} ages.
       </p>
-      <input type="text" onChange={handleChangeName} />
+      <input type="text" onChange={changed} value={name} />
     </div>
   );
 };

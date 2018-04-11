@@ -8,17 +8,26 @@ class App extends Component {
       { id: 0, name: "Rui", age: 19 },
       { id: 1, name: "Tony", age: 16 },
       { id: 2, name: "Andy", age: 26 }
-    ]
+    ],
+    toggleShowAndOut: false
   };
-  handleChangeName = e => {
-    console.log(e.target.value);
-    this.setState({
-      persons: [
-        { id: 0, name: e.target.value, age: 19 },
-        { id: 1, name: "Tony", age: 16 },
-        { id: 2, name: "Andy", age: 26 }
-      ]
-    });
+  handleToggle = () => {
+    this.setState({ toggleShowAndOut: !this.state.toggleShowAndOut });
+  };
+  handleDel = id => {
+    const persons = [...this.state.persons];
+    persons.splice(id, 1);
+    this.setState({ persons });
+  };
+  handleChangeName = (e, id) => {
+    const personsIndex = this.state.persons.findIndex(
+      person => person.id === id
+    );
+    const person = { ...this.state.persons[personsIndex] };
+    person.name = e.target.value;
+    const persons = [...this.state.persons];
+    persons[personsIndex] = person;
+    this.setState({ persons });
   };
   render() {
     const btnStyle = {
@@ -28,27 +37,30 @@ class App extends Component {
       padding: "8px",
       cursor: "pointer"
     };
+
+    let persons = null;
+    if (this.state.toggleShowAndOut) {
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) => (
+            <Person
+              key={index}
+              name={person.name}
+              age={person.age}
+              handeClick={() => this.handleDel(index)}
+              changed={e => this.handleChangeName(e, index)}
+            />
+          ))}
+        </div>
+      );
+    }
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-          id={this.state.persons[0].id}
-          handleChangeName={this.handleChangeName}
-        />
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          id={this.state.persons[1].id}
-          handleChangeName={this.handleChangeName}
-        />
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-          id={this.state.persons[2].id}
-          handleChangeName={this.handleChangeName}
-        />
+        <button style={btnStyle} onClick={this.handleToggle}>
+          Switch Name
+        </button>
+        {persons}
       </div>
     );
   }
