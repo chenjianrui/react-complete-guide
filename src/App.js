@@ -10,14 +10,15 @@ class App extends Component {
       { id: 1, name: "Tony", age: 16 },
       { id: 2, name: "Andy", age: 26 }
     ],
-    toggleShowAndOut: false
+    isShowing: false
   };
   handleToggle = () => {
-    this.setState({ toggleShowAndOut: !this.state.toggleShowAndOut });
+    let isShowing = this.state.isShowing;
+    this.setState({ isShowing: !isShowing });
   };
-  handleDel = id => {
+  handleClickDel = index => {
     const persons = [...this.state.persons];
-    persons.splice(id, 1);
+    persons.splice(index, 1);
     this.setState({ persons });
   };
   handleChangeName = (e, id) => {
@@ -43,9 +44,8 @@ class App extends Component {
         color: "black"
       }
     };
-
     let persons = null;
-    if (this.state.toggleShowAndOut) {
+    if (this.state.isShowing) {
       persons = (
         <div>
           {this.state.persons.map((person, index) => (
@@ -53,19 +53,18 @@ class App extends Component {
               key={index}
               name={person.name}
               age={person.age}
-              handeClick={() => this.handleDel(index)}
+              handleClick={() => this.handleClickDel(index)}
               changed={e => this.handleChangeName(e, index)}
             />
           ))}
         </div>
       );
-      btnStyle.backgroundColor = "red";
-      btnStyle[":hover"] = {
-        backgroundColor: "#ddd",
-        color: "#fff"
-      };
     }
-
+    btnStyle.backgroundColor = "red";
+    btnStyle[":hover"] = {
+      backgroundColor: "blue",
+      color: "white"
+    };
     const classes = [];
     if (this.state.persons.length <= 2) {
       classes.push("red");
