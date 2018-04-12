@@ -9,4 +9,3 @@
 如果是 array 可利用 map 裡的參數 .map(data, index) ，index 抓取你要的那筆資料
 
 這裡的實作用於抓到相關依的 user input ，去針對每一筆做 state 的改變，改變完後再把它塞回淺拷貝出來的 array 或 object 裡，然後再做更變 state
-test
