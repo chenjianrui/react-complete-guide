@@ -16,20 +16,22 @@ class App extends Component {
     let isShowing = this.state.isShowing;
     this.setState({ isShowing: !isShowing });
   };
-  handleClickDel = index => {
-    const persons = [...this.state.persons];
-    persons.splice(index, 1);
-    this.setState({ persons });
-  };
   handleChangeName = (e, id) => {
-    const personsIndex = this.state.persons.findIndex(
-      person => person.id === id
-    );
+    const personsIndex = this.state.persons.findIndex(person => {
+      console.log(person, id);
+      return person.id === id;
+    });
     const person = { ...this.state.persons[personsIndex] };
     person.name = e.target.value;
     const persons = [...this.state.persons];
     persons[personsIndex] = person;
     this.setState({ persons });
+  };
+  handleClickDel = index => {
+    const persons = [...this.state.persons];
+    persons.splice(index, 1);
+    this.setState({ persons });
+    console.log(this.state.persons);
   };
   render() {
     const btnStyle = {
@@ -53,8 +55,8 @@ class App extends Component {
               key={index}
               name={person.name}
               age={person.age}
-              handleClick={() => this.handleClickDel(index)}
-              changed={e => this.handleChangeName(e, index)}
+              handleClick={() => this.handleClickDel(person.id)}
+              changed={e => this.handleChangeName(e, person.id)}
             />
           ))}
         </div>
