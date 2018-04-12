@@ -1,9 +1,8 @@
 import React from "react";
-import "./Person.css";
-import Radium from "radium";
+import classes from "./Person.css";
 const person = ({ name, age, handleClick, changed }) => {
   return (
-    <div className="Person">
+    <div className={classes.Person}>
       <p onClick={handleClick}>
         My name is {name}, and I'm {age} ages.
       </p>

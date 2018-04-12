@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import classes from "./App.css";
 import Person from "./Person/Person";
 
 class App extends Component {
@@ -17,7 +17,6 @@ class App extends Component {
   };
   handleChangeName = (e, id) => {
     const personsIndex = this.state.persons.findIndex(person => {
-      console.log(person, id);
       return person.id === id;
     });
     const person = { ...this.state.persons[personsIndex] };
@@ -30,18 +29,10 @@ class App extends Component {
     const persons = [...this.state.persons];
     persons.splice(index, 1);
     this.setState({ persons });
-    console.log(this.state.persons);
   };
   render() {
-    const btnStyle = {
-      backgroundColor: "green",
-      color: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer"
-    };
     let persons = null;
+    let btnClick = "";
     if (this.state.isShowing) {
       persons = (
         <div>
@@ -50,26 +41,26 @@ class App extends Component {
               key={index}
               name={person.name}
               age={person.age}
-              handleClick={() => this.handleClickDel(person.id)}
+              handleClick={() => this.handleClickDel(index)}
               changed={e => this.handleChangeName(e, person.id)}
             />
           ))}
         </div>
       );
+      btnClick = classes.red;
     }
-    btnStyle.backgroundColor = "red";
-    const classes = [];
+    const assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push("red");
+      assignedClasses.push(classes.red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push("bold");
+      assignedClasses.push(classes.bold);
     }
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(" ")}>I'm already learn React</p>
-        <button style={btnStyle} onClick={this.handleToggle}>
+        <p className={assignedClasses.join(" ")}>I'm already learn React</p>
+        <button className={btnClick} onClick={this.handleToggle}>
           Switch Name
         </button>
         {persons}
