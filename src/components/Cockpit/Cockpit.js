@@ -1,8 +1,10 @@
 import React from "react";
 import classes from "./Cockpit.css";
+import Aux from "../../hoc/Aux";
+
 const cockpit = ({ isShowing, persons, clicked }) => {
   const assignedClasses = [];
-  let btnClick = "";
+  let btnClick = classes.Button;
   if (persons.length <= 2) {
     assignedClasses.push(classes.red);
   }
@@ -10,16 +12,16 @@ const cockpit = ({ isShowing, persons, clicked }) => {
     assignedClasses.push(classes.bold);
   }
   if (isShowing) {
-    btnClick = classes.red;
+    btnClick = [classes.Button, classes.red].join(" ");
   }
   return (
-    <div className={classes.Cockpit}>
+    <Aux>
       <h1>Hi, I'm a React App</h1>
       <p className={assignedClasses.join(" ")}>I'm already learn React</p>
       <button className={btnClick} onClick={clicked}>
         Switch Name
       </button>
-    </div>
+    </Aux>
   );
 };
 
