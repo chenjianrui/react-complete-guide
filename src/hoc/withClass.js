@@ -19,5 +19,4 @@ const withClass = (WrappendComponent, className) => {
     }
   };
 };
-
 export default withClass;
